@@ -5,6 +5,10 @@ const serverHandle = (req, res) => {
   //設定返回格式 JSON
   res.setHeader("Content-type", "application/json");
 
+  //獲取path
+  const url = req.url;
+  req.path = url.split("?")[0];
+
   //處理Blog路由
   const blogData = hanldeBlogRouter(req, res);
   if (blogData) {
