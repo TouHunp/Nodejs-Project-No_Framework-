@@ -1,3 +1,4 @@
+//創建server
 const http = require("http");
 
 const PORT = 8000;

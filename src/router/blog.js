@@ -1,11 +1,16 @@
+const { getList } = require("../controller/blog.js");
+const { SuccessModel, ErrorModel } = require("../model/resModel.js");
+
 const hanldeBlogRouter = (req, res) => {
   const method = req.method; //GET POST
 
   //獲取BLOG列表
   if (method === "GET" && req.path === "/api/blog/list") {
-    return {
-      msg: "這是取得BLOG列表的路徑",
-    };
+    //獲取query(?後面的東西)中的author
+    const author = req.query.author || "";
+    const keyword = req.query.keyword || "";
+    const listData = getList(author, keyword);
+    return new SuccessModel(listData);
   }
 
   //建立一篇BLOG

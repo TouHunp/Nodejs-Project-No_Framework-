@@ -1,3 +1,4 @@
+const qs = require("querystring");
 const hanldeBlogRouter = require("./src/router/blog.js");
 const hanldeUserRouter = require("./src/router/user.js");
 
@@ -9,10 +10,16 @@ const serverHandle = (req, res) => {
   const url = req.url;
   req.path = url.split("?")[0];
 
+  //分析query *parse就是將JSON格式的key帶入object ("title"="ABC" req.query.title = ABC)
+  req.query = qs.parse(url.split("?")[0]);
+
   //處理Blog路由
   const blogData = hanldeBlogRouter(req, res);
   if (blogData) {
-    res.end(JSON.stringify(blogData));
+    res.end(
+      //JSON.stringify(blogData)
+      JSON.stringify(blogData)
+    );
     return;
   }
 
