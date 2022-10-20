@@ -1,4 +1,4 @@
-const { getList } = require("../controller/blog.js");
+const { getList, getDetail } = require("../controller/blog.js");
 const { SuccessModel, ErrorModel } = require("../model/resModel.js");
 
 const hanldeBlogRouter = (req, res) => {
@@ -11,6 +11,13 @@ const hanldeBlogRouter = (req, res) => {
     const keyword = req.query.keyword || "";
     const listData = getList(author, keyword);
     return new SuccessModel(listData);
+  }
+
+  //獲取BLOG詳情
+  if (method === "GET" && req.path === "/api/blog/detail") {
+    const id = req.query.id;
+    const data = getDetail(id);
+    return new SuccessModel(data);
   }
 
   //建立一篇BLOG

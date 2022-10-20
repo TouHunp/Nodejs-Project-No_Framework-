@@ -1,3 +1,5 @@
+const { rejects } = require("assert");
+const { resolve } = require("path");
 const qs = require("querystring");
 const hanldeBlogRouter = require("./src/router/blog.js");
 const hanldeUserRouter = require("./src/router/user.js");
@@ -16,10 +18,7 @@ const serverHandle = (req, res) => {
   //處理Blog路由
   const blogData = hanldeBlogRouter(req, res);
   if (blogData) {
-    res.end(
-      //JSON.stringify(blogData)
-      JSON.stringify(blogData)
-    );
+    res.end(JSON.stringify(blogData));
     return;
   }
 
