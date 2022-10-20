@@ -46,20 +46,20 @@ const serverHandle = (req, res) => {
   getPostData(req).then((postData) => {
     req.body = postData;
 
-    //處理Blog路由
+    //處理Blog url
     const blogData = hanldeBlogRouter(req, res);
     if (blogData) {
       res.end(JSON.stringify(blogData));
       return;
     }
 
-    //處理user路由
+    //處理user url
     const userData = hanldeUserRouter(req, res);
     if (userData) {
       res.end(JSON.stringify(userData));
       return;
     }
-    //未命中路由 返回404
+    //未命中url 返回404
     res.writeHead(404, { "Content-type": "text/plain" });
     res.write("404 Not Found\n");
     res.end();
