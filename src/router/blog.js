@@ -3,6 +3,7 @@ const {
   getDetail,
   newBlog,
   updateBlog,
+  delBlog,
 } = require("../controller/blog.js");
 const { SuccessModel, ErrorModel } = require("../model/resModel.js");
 
@@ -43,9 +44,12 @@ const hanldeBlogRouter = (req, res) => {
 
   //刪除一篇BLOG
   if (method === "POST" && req.path === "/api/blog/del") {
-    return {
-      msg: "這是刪除BLOG的路徑",
-    };
+    const result = delBlog(id);
+    if (result) {
+      return new SuccessModel();
+    } else {
+      return new ErrorModel("BLOG刪除失敗");
+    }
   }
 };
 
