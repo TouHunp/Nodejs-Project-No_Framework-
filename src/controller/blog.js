@@ -30,8 +30,22 @@ const getDetail = (id) => {
     },
   ];
 };
+//blogData = {} ES6語法  表示若沒有則給一個空值
+const newBlog = (blogData = {}) => {
+  //blogData 是一個BLOG對象 包含title content屬性
+  return {
+    id: 3, //測試用，表示新建BLOG,插入到資料庫表裡的id
+  };
+};
+const updateBlog = (id, blogData = {}) => {
+  //id就是要更新BLOD的id
+  //blogData 是一個BLOG對象 包含title content屬性
+  return true;
+};
 
 module.exports = {
   getList,
   getDetail,
+  newBlog,
+  updateBlog,
 };

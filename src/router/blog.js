@@ -1,8 +1,14 @@
-const { getList, getDetail } = require("../controller/blog.js");
+const {
+  getList,
+  getDetail,
+  newBlog,
+  updateBlog,
+} = require("../controller/blog.js");
 const { SuccessModel, ErrorModel } = require("../model/resModel.js");
 
 const hanldeBlogRouter = (req, res) => {
   const method = req.method; //GET POST
+  const id = req.query.id; // 取得id
 
   //獲取BLOG列表
   if (method === "GET" && req.path === "/api/blog/list") {
@@ -15,23 +21,24 @@ const hanldeBlogRouter = (req, res) => {
 
   //獲取BLOG詳情
   if (method === "GET" && req.path === "/api/blog/detail") {
-    const id = req.query.id;
     const data = getDetail(id);
     return new SuccessModel(data);
   }
 
   //建立一篇BLOG
   if (method === "POST" && req.path === "/api/blog/new") {
-    return {
-      msg: "這是創建BLOG的路徑",
-    };
+    const data = newBlog(req.body);
+    return new SuccessModel(data);
   }
 
   //更新一篇BLOG
   if (method === "POST" && req.path === "/api/blog/update") {
-    return {
-      msg: "這是更新BLOG的路徑",
-    };
+    const result = updateBlog(id, req.body);
+    if (result) {
+      return new SuccessModel();
+    } else {
+      return new ErrorModel("BLOG更新失敗");
+    }
   }
 
   //刪除一篇BLOG
