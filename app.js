@@ -46,10 +46,17 @@ const serverHandle = (req, res) => {
   getPostData(req).then((postData) => {
     req.body = postData;
 
-    //處理Blog url
-    const blogData = hanldeBlogRouter(req, res);
-    if (blogData) {
-      res.end(JSON.stringify(blogData));
+    // const blogData = hanldeBlogRouter(req, res);
+    // if (blogData) {
+    //   res.end(JSON.stringify(blogData));
+    //   return;
+    // }
+    //處理Blog url (promise)
+    const blogResult = hanldeBlogRouter(req, res);
+    if (blogResult) {
+      blogResult.then((blogData) => {
+        res.end(JSON.stringify(blogData));
+      });
       return;
     }
 

@@ -1,3 +1,4 @@
+//判斷輸出數值成功與否
 class BaseModel {
   constructor(data, message) {
     if (typeof data === "string") {

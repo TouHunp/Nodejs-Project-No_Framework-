@@ -1,3 +1,4 @@
+//負責blog url的分支處理
 const {
   getList,
   getDetail,
@@ -16,8 +17,12 @@ const hanldeBlogRouter = (req, res) => {
     //獲取query(?後面的東西)中的author
     const author = req.query.author || "";
     const keyword = req.query.keyword || "";
-    const listData = getList(author, keyword);
-    return new SuccessModel(listData);
+    // const listData = getList(author, keyword); 改成返回promise 要改
+    // return new SuccessModel(listData);
+    const result = getList(author, keyword);
+    return result.then((listData) => {
+      return new SuccessModel(listData);
+    });
   }
 
   //獲取BLOG詳情

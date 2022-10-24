@@ -1,3 +1,5 @@
+//負責user url的分支處理
+
 const { loginCheck } = require("../controller/user.js");
 const { SuccessModel, ErrorModel } = require("../model/resModel.js");
 const hanldeUserRouter = (req, res) => {

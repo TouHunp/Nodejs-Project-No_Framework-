@@ -1,21 +1,18 @@
+const { exec } = require("../db/mysql.js");
+
 const getList = (author, keyword) => {
-  //尚未連接資料庫，先返回假數據來測試(但格式要正確)
-  return [
-    {
-      id: 1,
-      title: "標題A",
-      content: "內容A",
-      creatTime: 1666199301926,
-      author: "陳一",
-    },
-    {
-      id: 2,
-      title: "標題B",
-      content: "內容B",
-      creatTime: 1666199362406,
-      author: "陳二",
-    },
-  ];
+  //設條件1=1是因為要站位置，假設author&keyword皆無傳入值where後面直接接order.. 會出錯
+  //最後空格要注意 因為輸出到sql端需要
+  let sql = `select * from blogs where 1=1 `;
+  if (author) {
+    sql += `and author='${author}' `; //最後空格要注意 因為輸出到sql端需要
+  }
+  if (keyword) {
+    sql += `and title like '%${keyword}%' `; //最後空格要注意 因為輸出到sql端需要
+  }
+  sql += `order by createtime desc;`;
+  //返回promise
+  return exec(sql);
 };
 
 const getDetail = (id) => {
