@@ -27,14 +27,23 @@ const hanldeBlogRouter = (req, res) => {
 
   //獲取BLOG詳情
   if (method === "GET" && req.path === "/api/blog/detail") {
-    const data = getDetail(id);
-    return new SuccessModel(data);
+    // const data = getDetail(id);
+    // return new SuccessModel(data);
+    const result = getDetail(id);
+    return result.then((data) => {
+      return new SuccessModel(data);
+    });
   }
 
   //建立一篇BLOG
   if (method === "POST" && req.path === "/api/blog/new") {
-    const data = newBlog(req.body);
-    return new SuccessModel(data);
+    // const data = newBlog(req.body);
+    // return new SuccessModel(data);
+    req.body.author = "Chensr"; //暫時先假填入作者 等登入做完再改
+    const result = newBlog(req.body);
+    return result.then((data) => {
+      return new SuccessModel(data);
+    });
   }
 
   //更新一篇BLOG

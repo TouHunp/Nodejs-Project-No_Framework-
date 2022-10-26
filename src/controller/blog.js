@@ -16,24 +16,31 @@ const getList = (author, keyword) => {
 };
 
 const getDetail = (id) => {
-  //先返回假數據
-  return [
-    {
-      id: 1,
-      title: "標題A",
-      content: "內容A",
-      creatTime: 1666199301926,
-      author: "陳一",
-    },
-  ];
+  const sql = `select * from blogs where id='${id}'`;
+  return exec(sql).then((row) => {
+    return row[0];
+  });
 };
 //blogData = {} ES6語法  表示若沒有則給一個空值
 const newBlog = (blogData = {}) => {
   //blogData 是一個BLOG對象 包含title content屬性
-  return {
-    id: 3, //測試用，表示新建BLOG,插入到資料庫表裡的id
-  };
+  const title = blogData.title;
+  const content = blogData.content;
+  const author = blogData.author;
+  const createtime = Date.now();
+
+  const sql = `
+  insert into blogs (title,content,createtime,author) 
+  values ('${title}','${content}','${createtime}','${author}')`;
+
+  return exec(sql).then((insertData) => {
+    console.log("inserData is", insertData);
+    return {
+      id: insertData.insertId,
+    };
+  });
 };
+
 const updateBlog = (id, blogData = {}) => {
   //id就是要更新BLOD的id
   //blogData 是一個BLOG對象 包含title content屬性
