@@ -36,7 +36,7 @@ const newBlog = (blogData = {}) => {
   return exec(sql).then((insertData) => {
     console.log("inserData is", insertData);
     return {
-      id: insertData.insertId,
+      id: insertData.insertId, //insertId 會顯示新增的當筆資料id 此id也跟db的id同樣
     };
   });
 };
